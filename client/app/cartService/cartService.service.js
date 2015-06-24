@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gaCampingStore')
+angular.module('gaCampingStoreApp')
 .service('cartService', function() {
 
   var that = this;
