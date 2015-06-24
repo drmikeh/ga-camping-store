@@ -2,10 +2,16 @@
 
 angular.module('gaCampingStoreApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
-    $scope.menu = [{
+    $scope.menu = [
+    {
       'title': 'Home',
       'link': '/'
-    }];
+    },
+    {
+      'title': 'Items',
+      'link': '/items'
+    }
+  ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
