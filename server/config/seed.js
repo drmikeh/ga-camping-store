@@ -44,12 +44,12 @@ User.find({}).remove(function() {
     email: 'admin@admin.com',
     password: 'admin'
   }, function() {
-      console.log('finished populating users');
+      console.log('Finished populating users');
     }
   );
 });
 
-Item.find().remove(function() {
+Item.find({}).remove(function() {
   Item.create(
     {
       category: 'Tents',

@@ -34,7 +34,6 @@ angular.module('gaCampingStoreApp')
   };
 
   that.goItem = function (item) {
-    console.log('goItem: ' + item._id);
     $state.go( 'itemDetail', { itemId : item._id } );
   };
 });
