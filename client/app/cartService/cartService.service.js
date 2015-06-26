@@ -1,44 +1,38 @@
 'use strict';
 
 angular.module('gaCampingStoreApp')
-.service('cartService', function() {
+.service('cartService', function($http, Auth) {
 
   var that = this;
 
-  that.cart = [];
-
-  function findItemById(items, id) {
-    return _.find(items, function(item) {
-      return item._id === id;
-    });
-  }
+  that.getCart = function() {
+    var userId = Auth.getCurrentUser()._id;
+    return $http.get('/api/users/' + userId + '/cart/');
+  };
 
   that.addItem = function(item) {
-    var found = findItemById(that.cart, item._id);
-    if (found) {
-      found.qty += item.qty;
-    }
-    else {
-      that.cart.push(angular.copy(item));
-    }
+    var userId = Auth.getCurrentUser()._id;
+    return $http.post('/api/users/' + userId + '/cart/' + item._id);
   };
 
-  that.removeItem = function(item) {
-    var index = that.cart.indexOf(item);
-    that.cart.splice(index, 1);
+  that.removeItem = function(cartItem) {
+    var userId = Auth.getCurrentUser()._id;
+    return $http.delete('/api/users/' + userId + '/cart/' + cartItem._id);
   };
 
-  that.getCost = function(item) {
-    return item.qty * item.price;
+  that.getCost = function(cartItem) {
+    return cartItem.qty * cartItem.item.price;
   };
 
-  that.getTotal = function() {
-    return _.reduce(that.cart, function(sum, item) {
-      return sum + that.getCost(item);
+  that.getTotal = function(cart) {
+    var total = _.reduce(cart, function(sum, cartItem) {
+      return sum + that.getCost(cartItem);
     }, 0);
+    return total;
   };
 
   that.clearCart = function() {
-    that.cart.length = 0;
+    var userId = Auth.getCurrentUser()._id;
+    return $http.delete('/api/users/' + userId + '/cart/');
   };
 });

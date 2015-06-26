@@ -45,12 +45,12 @@
 <section class="cart text-center">
   <h2>Your Cart:</h2>
   <ul>
-    <li class="cart animate-cart" ng-repeat="item in ctrl.cart">
-      <span>{{ item.qty + ' x ' + item.description + ' = ' + (ctrl.getCost(item) | currency) }}</span>
-      <button class="btn btn-danger btn-xs" ng-click="ctrl.removeItem(item)">Remove Item</button>
+    <li class="cart animate-cart" ng-repeat="cartItem in ctrl.cart">
+      <span>{{ cartItem.qty + ' x ' + cartItem.item.name + ' = ' + (ctrl.getCost(cartItem) | currency) }}</span>
+      <button class="btn btn-danger btn-xs" ng-click="ctrl.removeItem(cartItem)">Remove Item</button>
     </li>
   </ul>
-  <h3>Total: {{ ctrl.getTotal() | currency }}</h3>
+  <h3>Total: {{ ctrl.total | currency }}</h3>
   <br>
   <button class="btn btn-danger" ng-click="ctrl.clearCart()">Clear Cart</button>
 </section>
