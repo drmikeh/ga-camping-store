@@ -12,7 +12,9 @@ angular.module('gaCampingStoreApp')
   function find(cart, item) {
     var len = cart.length;
     for (var i=0; i<len; i++) {
-      if (cart[i]._id === item._id) return cart[i];
+      if (cart[i]._id === item._id) {
+        return cart[i];
+      }
     }
     return null;
   }
@@ -22,8 +24,9 @@ angular.module('gaCampingStoreApp')
 
     // add cartItems in cartFromServer not found in that.cart
     var len = cartFromServer.length;
+    var cartItem;
     for (var i=0; i<len; i++) {
-      var cartItem = cartFromServer[i];
+      cartItem = cartFromServer[i];
       if (!find(that.cart, cartItem)) {
         console.log('adding cartItem from server: ' + cartItem.item.name);
         that.cart.splice(i, 0, cartItem);
@@ -31,9 +34,9 @@ angular.module('gaCampingStoreApp')
     }
 
     // check for remove or update
-    var i = that.cart.length;
+    i = that.cart.length;
     while (i--) {
-      var cartItem = that.cart[i];
+      cartItem = that.cart[i];
       // remove cartItems in that.cart not found in cartFromServer
       var found = find(cartFromServer, cartItem);
       if (!found) {
