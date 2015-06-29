@@ -3,13 +3,30 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
+var User = require('../user/user.model');
+var auth = require('../../auth/auth.service');
 
-describe('GET /api/users/:userId/cart', function() {
+var user = new User({
+  provider: 'local',
+  name: 'Fake User',
+  email: 'test@test.com',
+  password: 'password'
+});
 
-/* TODO: fix test
+describe('GET /api/users/userId/cart', function() {
+  before(function(done) {
+    // Add a test user before testing
+    user.save(function() {
+      done();
+    });
+  });
+
   it('should respond with JSON array', function(done) {
-    request(app)
-      .get('/api/users/:userId/cart')
+    var token = auth.signToken(user._id, user.role);
+    var req = request(app);
+    console.log('req: ' + JSON.stringify(req));
+    req
+      .get('/api/users/' + user._id + '/cart/' + '?access_token=' + token)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function(err, res) {
@@ -18,6 +35,5 @@ describe('GET /api/users/:userId/cart', function() {
         done();
       });
   });
-*/
 
 });

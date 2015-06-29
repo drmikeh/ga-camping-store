@@ -1,12 +1,29 @@
 # Deploying to Heroku
 
+
+## Prerequisites
+
+* Now make sure Heroku has your credit card by visiting https://heroku.com/verify
+* I had to disable the `rev` task for images so that the image paths in the DB data
+  would match the names of the files in the `dist` folder.
+
+## 1st Time Deployment Steps
+
 ```bash
 yo angular-fullstack:heroku
-
-# Now make sure Heroku has your credit card by visiting https://heroku.com/verify
-# Then run:
+cd dist
 heroku addons:create mongolab:sandbox
 ```
+
+## Re-deploys
+
+```bash
+grunt build
+grunt buildcontrol:heroku
+```
+
+
+### Instructions from running `yo angular-fullstack:heroku`
 
 ```
 Because you're using mongoose, you must add mongoDB to your heroku app.
