@@ -102,7 +102,7 @@ exports.removeAllItems = function(req, res) {
     if (err) { return handleError(res, err); }
     if (!user) { return res.send(404); }
 
-    user.cart = new Array();
+    user.cart = [];
     user.save(function() {
       user.populate('cart.item', function(err, user) {
         return res.send(204, user.cart);
