@@ -1333,3 +1333,88 @@ git add -A
 git commit -m "Integrate the Client Cart with the Server Cart."
 git tag step11
 ```
+
+## Step 12 - Deploying to Heroku
+
+In this step we will deploy our app to Heroku. We generated this project with
+the `angular-fullstack` Yeoman generator and it provides us with a Grunt task
+for deploying to Heroku. Since we will be deploying an app that uses MongoDB,
+we will need to use the `mongolab` Heroku addon, which at this time requires
+a Credit Card to be on file with Heroku. I have not tried using Compose
+(formerly MongoHQ) but the file `config/environment/production.js` does appear
+to support it.
+
+12a. Register a Credit Card with Heroku to enable the use of the `mongolab`
+Heroku addon (you will not be billed):
+
+Use a browser to navigate to [Heroku Verify](https://heroku.com/verify) and enter
+your credit card information.
+
+12b. Complete a `grunt build` to ensure that the `dist` directory is up to date:
+
+```bash
+grunt build
+```
+
+12c. Add the `mongolab:sandbox` Heroku addon:
+
+> Note: You will need to run all `heroku` commands from the `dist` directory:
+
+```bash
+cd dist
+heroku addons:create mongolab:sandbox
+cd ..
+```
+
+12d. Deploy the app to Heroku:
+
+Run the following command from the main project directory:
+
+```bash
+grunt buildcontrol:heroku
+```
+
+Congratulations, you have deployed your app to Heroku!
+
+12e. How to push updates to Heroku:
+
+To push your latest changes to Heroku, simply run the following:
+
+```bash
+grunt build    (or you can simply run "grunt")
+grunt buildcontrol:heroku
+```
+
+12f. Notes on Deploying to Heroku
+
+* I had to disable the `rev` task for images so that the image paths in the
+  DB data would match the names of the files in the `dist` folder.
+
+* The first time I deployed to Heroku, I got the following message:
+
+```
+Because you're using mongoose, you must add mongoDB to your heroku app.
+  from `/dist`: heroku addons:add mongohq
+
+You will need to set environment variables for facebook auth. From `/dist`:
+  heroku config:set FACEBOOK_ID=appId
+  heroku config:set FACEBOOK_SECRET=secret
+
+You will need to set environment variables for google auth. From `/dist`:
+  heroku config:set GOOGLE_ID=appId
+  heroku config:set GOOGLE_SECRET=secret
+
+You will need to set environment variables for twitter auth. From `/dist`:
+  heroku config:set TWITTER_ID=appId
+  heroku config:set TWITTER_SECRET=secret
+
+
+Your app should now be live. To view it run
+  cd dist && heroku open
+
+You may need to address the issues mentioned above and restart the server for the app to work correctly.
+After app modification run
+  grunt build
+Then deploy with
+  grunt buildcontrol:heroku
+```
