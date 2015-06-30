@@ -1350,13 +1350,19 @@ Heroku addon (you will not be billed):
 Use a browser to navigate to [Heroku Verify](https://heroku.com/verify) and enter
 your credit card information.
 
-12b. Complete a `grunt build` to ensure that the `dist` directory is up to date:
+12b. Register this app as an Heroku app by running:
+
+```bash
+grunt buildcontrol:heroku
+```
+
+12c. Complete a `grunt build` to ensure that the `dist` directory is up to date:
 
 ```bash
 grunt build
 ```
 
-12c. Add the `mongolab:sandbox` Heroku addon:
+12d. Add the `mongolab:sandbox` Heroku addon:
 
 > Note: You will need to run all `heroku` commands from the `dist` directory:
 
@@ -1366,7 +1372,7 @@ heroku addons:create mongolab:sandbox
 cd ..
 ```
 
-12d. Deploy the app to Heroku:
+12e. Deploy the app to Heroku:
 
 Run the following command from the main project directory:
 
@@ -1376,7 +1382,7 @@ grunt buildcontrol:heroku
 
 Congratulations, you have deployed your app to Heroku!
 
-12e. How to push updates to Heroku:
+12f. How to push updates to Heroku:
 
 To push your latest changes to Heroku, simply run the following:
 
@@ -1385,7 +1391,7 @@ grunt build    (or you can simply run "grunt")
 grunt buildcontrol:heroku
 ```
 
-12f. Notes on Deploying to Heroku
+12g. Notes on Deploying to Heroku
 
 * I had to disable the `rev` task for images so that the image paths in the
   DB data would match the names of the files in the `dist` folder.
