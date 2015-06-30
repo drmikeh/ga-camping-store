@@ -1353,7 +1353,7 @@ your credit card information.
 12b. Register this app as an Heroku app by running:
 
 ```bash
-grunt buildcontrol:heroku
+yo angular-fullstack:heroku
 ```
 
 12c. Complete a `grunt build` to ensure that the `dist` directory is up to date:
