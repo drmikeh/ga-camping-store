@@ -1,5 +1,8 @@
 # GA Camping Store
 
+This is a simple Camping Store app built with the *MEAN* stack via the Yeoman
+*angular-fullstack* generator.
+
 ## Steps to Reproduce This Project
 
 ### Step 1 - Setup The Project
