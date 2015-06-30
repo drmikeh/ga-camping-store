@@ -1337,12 +1337,14 @@ git tag step11
 ## Step 12 - Deploying to Heroku
 
 In this step we will deploy our app to Heroku. We generated this project with
-the `angular-fullstack` Yeoman generator and it provides us with a Grunt task
-for deploying to Heroku. Since we will be deploying an app that uses MongoDB,
+the `angular-fullstack` *Yeoman* generator and it provides us with a Yeoman
+*subgenerator* for registering our project with Heroku and a `Grunt` task
+for deploying to Heroku. Since we will be deploying an app that uses `MongoDB`,
 we will need to use the `mongolab` Heroku addon, which at this time requires
 a Credit Card to be on file with Heroku. I have not tried using Compose
 (formerly MongoHQ) but the file `config/environment/production.js` does appear
-to support it.
+to support it. You can read more about Heroku's support of Compose at
+[Heroku and MongoHQ](https://devcenter.heroku.com/articles/mongohq).
 
 12a. Register a Credit Card with Heroku to enable the use of the `mongolab`
 Heroku addon (you will not be billed):
@@ -1350,7 +1352,7 @@ Heroku addon (you will not be billed):
 Use a browser to navigate to [Heroku Verify](https://heroku.com/verify) and enter
 your credit card information.
 
-12b. Register this app as an Heroku app by running:
+12b. Register this app as an Heroku app using the `heroku` subgenerator:
 
 ```bash
 yo angular-fullstack:heroku
@@ -1391,12 +1393,36 @@ grunt build    (or you can simply run "grunt")
 grunt buildcontrol:heroku
 ```
 
-12g. Notes on Deploying to Heroku
+### Notes on Deploying to Heroku
 
-* I had to disable the `rev` task for images so that the image paths in the
-  DB data would match the names of the files in the `dist` folder.
+> Note A: Running the seed.js file in `production`:
 
-* The first time I deployed to Heroku, I got the following message:
+To get your seed.js file to run in the `production` environment, you will
+need to edit the file `server/config/environment/index.js` and search for
+"seedDB" and set its value to true:
+
+```
+...
+seedDB: true,       // change this value from false to true
+...
+```
+
+Then simply rebuild and redeploy via:
+
+```bash
+grunt build
+grunt buildcontrol:heroku
+```
+
+> Note B: Turning off revision / renaming of image files:
+
+I had to disable the `rev` task for images so that the image paths in the
+DB data would match the names of the files in the `dist` folder.
+
+> Note C: Additional instructions for configuring OAuth providers:
+
+After running `yo angular-fullstack:heroku` you will get the following message
+which includes instructions on configuring the OAuth providers:
 
 ```
 Because you're using mongoose, you must add mongoDB to your heroku app.
