@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('gaCampingStoreApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function($scope, $http) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
@@ -9,10 +9,12 @@ angular.module('gaCampingStoreApp')
     });
 
     $scope.addThing = function() {
-      if($scope.newThing === '') {
+      if ($scope.newThing === '') {
         return;
       }
-      $http.post('/api/things', { name: $scope.newThing });
+      $http.post('/api/things', {
+        name: $scope.newThing
+      });
       $scope.newThing = '';
     };
 

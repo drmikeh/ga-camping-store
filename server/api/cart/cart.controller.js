@@ -19,14 +19,18 @@ exports.get = function(req, res) {
   console.log('userId: ' + userId);
 
   User.findById(userId)
-  .populate('cart.item')
-  .exec(function(err, user) {
-    if (err) { return handleError(res, err); }
-    if (!user) { return res.send(404); }
-    console.log('user: ' + user.name);
-    console.log('returning cart: ' + JSON.stringify(user.cart));
-    res.json(200, user.cart);
-  });
+    .populate('cart.item')
+    .exec(function(err, user) {
+      if (err) {
+        return handleError(res, err);
+      }
+      if (!user) {
+        return res.send(404);
+      }
+      console.log('user: ' + user.name);
+      console.log('returning cart: ' + JSON.stringify(user.cart));
+      res.json(200, user.cart);
+    });
 };
 
 // Add a new item to the cart or update the qty and return the cart.
@@ -37,25 +41,35 @@ exports.addItem = function(req, res) {
   console.log('userId: ' + userId + ', itemId: ' + itemId);
 
   Item.findById(itemId, function(err, item) {
-    if (err) { return handleError(res, err); }
-    if (!item) { return res.send(404); }
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!item) {
+      return res.send(404);
+    }
     User.findById(userId, function(err, user) {
-      if (err) { return handleError(res, err); }
-      if (!user) { return res.send(404); }
+      if (err) {
+        return handleError(res, err);
+      }
+      if (!user) {
+        return res.send(404);
+      }
 
       // Check if item is already in cart
       var found = findItemInCart(user, item._id);
       if (found) {
         console.log('Found item ' + item.name + ' in cart, therefore incrementing qty');
         found.qty = found.qty + 1;
-      }
-      else {
+      } else {
         console.log('Adding item to cart: ' + item.name);
-        user.cart.push( new CartItem( { item: item, qty: 1 } ) );
+        user.cart.push(new CartItem({
+          item: item,
+          qty: 1
+        }));
       }
       user.save(function() {
         user.populate('cart.item', function(err, user) {
-          return res.json(201, user.cart );
+          return res.json(201, user.cart);
         });
       });
     });
@@ -71,21 +85,24 @@ exports.removeItem = function(req, res) {
 
   // Remove the item, get the updated cart, and return the cart
   User.findById(userId, function(err, user) {
-    if (err) { return handleError(res, err); }
-    if (!user) { return res.send(404); }
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!user) {
+      return res.send(404);
+    }
 
     // Check if item is already in cart
     var found = findItemInCart(user, cartItemId);
     if (found) {
       console.log('Removing item from cart');
-      user.cart.pull(found._id);               // pull is a feature of MongooseArray!
-    }
-    else {
+      user.cart.pull(found._id); // pull is a feature of MongooseArray!
+    } else {
       return res.send(404);
     }
     user.save(function() {
       user.populate('cart.item', function(err, user) {
-        return res.json(201, user.cart );
+        return res.json(201, user.cart);
       });
     });
   });
@@ -99,8 +116,12 @@ exports.removeAllItems = function(req, res) {
 
   // remove all items from cart and return the cart
   User.findById(userId, function(err, user) {
-    if (err) { return handleError(res, err); }
-    if (!user) { return res.send(404); }
+    if (err) {
+      return handleError(res, err);
+    }
+    if (!user) {
+      return res.send(404);
+    }
 
     user.cart = [];
     user.save(function() {
