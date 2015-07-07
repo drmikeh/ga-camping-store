@@ -1453,3 +1453,75 @@ After app modification run
 Then deploy with
   grunt buildcontrol:heroku
 ```
+
+## Step 13 - Preparing for Unit and E2E Testing
+
+In this step we will be adding unit and e2e testing to our Camping Store app.
+Since our app was scaffolded with the *angular-fullstack* generator, the
+project is already configured to run client and server side *unit* tests as
+well as *e2e* tests.
+
+13a. Try running the *client* and *server* unit tests:
+
+```bash
+grunt test
+```
+
+or to just run the client or server tests:
+
+```bash
+grunt test:client
+grunt test:server
+```
+
+13b. Add Spec Reporter to Karma.
+
+The [Karma Spec Reporter](https://www.npmjs.com/package/karma-spec-reporter)
+prints out a nice "checklist" of the unit tests results. First we need to
+install the Spec Reporter:
+
+```bash
+npm install --save-dev karma-spec-reporter
+```
+
+Now we need to add it to `karma.conf.js`:
+
+```javascript
+reporters: ['spec'],
+```
+
+13c. End-to-end (E2E) Testing
+
+To be able to run the *e2e* tests, we need to install / update the Selenium
+Chrome webdriver that manages the interaction with the browser.
+
+Some terminology:
+
+| Term                | Definition                                          |
+| ------------------- |:--------------------------------------------------- |
+| ***Selenium***      | Software that automates browsers.                   |
+| ***WebDriver***     | An adapter that allows ***Selenium*** to work with a specific browser such as ***Chrome***. |
+
+Update the Selenium WebDriver:
+
+The scaffolded `package.json` file has a target for updating the webdriver, so
+we run it with the following command:
+
+```bash
+npm run update-webdriver
+```
+
+Now we can run the *E2E* tests:
+
+```bash
+grunt test:e2e
+```
+
+13d. Commit your work:
+
+```bash
+git add -A
+git commit -m "Added karma-spec-reporter."
+git tag step13
+```
+
