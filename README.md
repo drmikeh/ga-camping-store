@@ -16,7 +16,7 @@ The steps below will demonstrate how to create this project from scratch:
 * [Step 7 - Implement the Items View](#step-7---implement-the-items-view)
 * [Step 8 - Create a New Route for the Items Detail View](#step-8---create-a-new-route-for-the-items-detail-view)
 * [Step 9 - Call the Server to get the Items](#step-9---call-the-server-to-get-the-items)
-* [Step 10 - Add RESTful endpoints and model for Shopping Cart.](#step-10---add-restful-endpoints-and-model-for-shopping-cart)
+* [Step 10 - Add RESTful endpoints and model for Shopping Cart](#step-10---add-restful-endpoints-and-model-for-shopping-cart)
 * [Step 11 - Integrate the Client Cart with the Server Cart](#step-11---integrate-the-client-cart-with-the-server-cart)
 * [Step 12 - Deploying to Heroku](#step-12---deploying-to-heroku)
 * [Notes on Deploying to Heroku](#notes-on-deploying-to-heroku)
@@ -1008,7 +1008,7 @@ git commit -m "Integrated the client with the server for getting the items."
 git tag step9
 ```
 
-### Step 10 - Add RESTful endpoints and model for Shopping Cart.
+### Step 10 - Add RESTful endpoints and model for Shopping Cart
 
 In this step we will be saving the user's shopping cart to the MongoDB
 database.  Each time a user adds or removes an item from the shopping cart
@@ -1211,7 +1211,7 @@ git commit -m "Added RESTful endpoints and model for Shopping Cart."
 git tag step10
 ```
 
-## Step 11 - Integrate the Client Cart with the Server Cart
+### Step 11 - Integrate the Client Cart with the Server Cart
 
 11a. Edit `client/app/cartService/cartService.service.js` and set its contents to:
 
@@ -1353,7 +1353,7 @@ git commit -m "Integrate the Client Cart with the Server Cart."
 git tag step11
 ```
 
-## Step 12 - Deploying to Heroku
+### Step 12 - Deploying to Heroku
 
 In this step we will deploy our app to Heroku. We generated this project with
 the `angular-fullstack` *Yeoman* generator and it provides us with a Yeoman
